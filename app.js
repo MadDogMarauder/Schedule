@@ -20,17 +20,26 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+// Set the public files for the application. All under 'public'
 app.use(express.static(path.join(__dirname,'public')));
 
 app.use('/', routes);
 app.use('/users', users);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+// Handle requests for unknown sources 404 errors
+// This works by creating an error and passing it to the error handler below
+app.use(function (req, res) {
+    var err = new Error('Page not found.');
+    err.status = 404;
+    console.error(err);
+
+    res.render('error',{
+        message: err.message,
+        error:{}
+    })
 });
+
 
 // error handlers
 
@@ -38,11 +47,12 @@ app.use(function(req, res, next) {
 // will print stacktrace
 if (app.get('env') === 'development') {
   app.use(function(err, req, res) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
-    });
+      console.error(err);
+      res.status(err.status || 500);
+      res.render('error', {
+          message: err.message,
+          error: err
+      });
   });
 }
 

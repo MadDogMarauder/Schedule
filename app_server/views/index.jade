@@ -1,6 +1,20 @@
 extends layout
 
 block content
-  h1= title
-  p Future scheduling application!
+    h1= title
+    p Future scheduling application!
+
+    h2 Creating a new user
+    form(action='/users/create', method='post')
+        input(type='text', name='username')
+        input(type='text', name='firstname')
+        input(type='text', name='lastname')
+        input(type='text', name='email')
+        input(type='submit')
+    h2 Users
+
+    ul
+    each user in users
+        li
+            = user.username
 

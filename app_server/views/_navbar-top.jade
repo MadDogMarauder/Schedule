@@ -21,5 +21,15 @@ mixin topnav(name, id, style)
         .collapse.navbar-collapse( id=id )
             ul.nav.navbar-nav
                 li(class='active'): a(href='/') home
-            p(class='navbar-text navbar-right') Signed in as USER
+            ul.nav.navbar-nav(class=['navbar','navbar-nav','navbar-right'])
+                if currentUser
+                    p(class='navbar-text navbar-right') Signed in as
+                        a(href='/edit') #{currentUser}
+                else
+                    li
+                        a(href='/login') Login in
+                    li
+                        a(href='/signup') Sign up
+
+
 

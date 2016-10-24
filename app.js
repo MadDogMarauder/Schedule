@@ -4,6 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
+var flash = require('connect-flash');
 
 var routes = require('./app_server/routes/index');
 var users = require('./app_server/routes/users');
@@ -21,11 +23,20 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+// Not sure on the following:
+app.use(session({
+    secret: "TKRv0IJs=HYqrvagQ#&!F!%V]Ww/4KiVs$s,<<MX",
+    resave: true,
+    saveUninitialized: true
+}));
+
+app.use(flash());
+
 // Set the public files for the application. All under 'public'
 app.use(express.static(path.join(__dirname,'public')));
 
-app.use('/', routes);
-app.use('/users', users);
+app.use(routes);
+
 
 // Handle requests for unknown sources 404 errors
 // This works by creating an error and passing it to the error handler below

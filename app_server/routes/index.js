@@ -52,6 +52,7 @@ router.post('/signup', function(req, res, next) {
                 username: username,
                 password: password
             });
+
             newUser.save()
                 .then(function(){
                     console.log('User ' + username + ' saved!');

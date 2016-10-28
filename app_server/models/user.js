@@ -37,8 +37,10 @@ module.exports = function (sequelize, DataTypes){
         paranoid: true,
         tableName: 'users',
         instanceMethods: {
-            checkPassword: function (password) {
-                return bcrypt.hashSync(password, this.password);
+            isMatch: function (guess,done) {
+                bcrypt.compare(guess,this.password,function(err, isMatch){
+                    done(err,isMatch);
+                });
             }
         },
         getterMethods:{

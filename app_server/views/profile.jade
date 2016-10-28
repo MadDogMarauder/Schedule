@@ -1,0 +1,10 @@
+// User Profile - Contains all the user information
+
+extends layout
+
+block content
+    if currentUser && (currentUser.id === user.id)
+        a(href='/edit' class='pull-right') Edit your profile
+    h1 #{user.name}
+    h2 Joined on #{user.createdAt}
+

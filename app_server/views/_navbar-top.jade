@@ -24,12 +24,19 @@ mixin topnav(name, id, style)
             ul.nav.navbar-nav(class=['navbar','navbar-nav','navbar-right'])
                 if currentUser
                     p(class='navbar-text navbar-right') Signed in as
-                        a(href='/edit') #{currentUser}
+                        a(href='/edit') #{currentUser.username}
                 else
                     li
                         a(href='/login') Login in
                     li
                         a(href='/signup') Sign up
+    div.container
+        each error in errors
+            div.alert.alert-danger(role='alert')
+                p #{error}
+        each info in infos
+            div.alert.alert-info(role='alert')
+                p #{info}
 
 
 

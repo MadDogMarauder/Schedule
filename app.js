@@ -6,6 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var flash = require('connect-flash');
+var passport = require('passport');
+var setupPassword = require('./app_server/javascript/setupPassport');
 
 var routes = require('./app_server/routes/index');
 var users = require('./app_server/routes/users');
@@ -19,13 +21,13 @@ app.set('view engine', 'jade');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
-app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(cookieParser());
 
 // Not sure on the following:
 app.use(session({
-    secret: "TKRv0IJs=HYqrvagQ#&!F!%V]Ww/4KiVs$s,<<MX",
+    secret: "TKRv0IJs=whyNotSelectAsecret1208%$",
     resave: true,
     saveUninitialized: true
 }));
@@ -34,6 +36,7 @@ app.use(flash());
 
 // Set the public files for the application. All under 'public'
 app.use(express.static(path.join(__dirname,'public')));
+setupPassword(app);
 
 app.use(routes);
 
@@ -54,18 +57,7 @@ app.use(function (req, res) {
 
 // error handlers
 
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-  app.use(function(err, req, res) {
-      console.error(err);
-      res.status(err.status || 500);
-      res.render('error', {
-          message: err.message,
-          error: err
-      });
-  });
-}
+
 
 // production error handler
 // no stacktraces leaked to user

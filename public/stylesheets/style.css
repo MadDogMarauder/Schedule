@@ -1,8 +1,28 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 40px;
+    background-color:#2c3b41;
+    color: white;
+}
+
 body {
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
     margin:0;
     padding:0;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
 }
+
 
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
     color: #000;  /*Sets the text hover color on navbar*/
@@ -41,3 +61,10 @@ a:hover, .navbar-default .navbar-nav > .active > a:focus {
     padding-right: 5px;
 
 }
+.panel-default>.panel-heading {
+    color: white;
+    background:#0972a5 url(../jquery_ui/images/ui-bg_highlight-hard_20_0972a5_1x100.png) 50% 50% repeat-x;
+    background-color: rgb(9,114,165);
+    border-color: rgb(38, 179, 247);
+}
+

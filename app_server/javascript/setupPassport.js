@@ -11,13 +11,13 @@ module.exports = function (app) {
     app.use(passport.session());
 
     passport.serializeUser(function(user,done){
-       done(null,user.id);
+        done(null,user.id);
     });
     passport.deserializeUser(function(id,done){
-       models.User.findOne({
-           where: {
+        models.User.findOne({
+            where: {
                id:id
-           }
+            }
        }).then(function(user){
            done(null, user);
        }).catch(function(err){
@@ -27,14 +27,12 @@ module.exports = function (app) {
 
     // Define how to authenticate the user
     passport.use(new LocalStrategy(function (username, password,done){
-        console.log("In local strategy");
         models.User.findOne({
             where: {
                 username: username
             }
 
         }) .then(function(user){
-            console.log('In local strategy');
             if(!user) {
                 return done(null, false, {message: 'Unknown user.'});
             }

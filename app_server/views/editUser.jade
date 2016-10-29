@@ -1,0 +1,10 @@
+
+extends layout
+
+block content
+    h1 Edit your profile
+
+    form(action = '/editUser' method='post')
+        input.form-control(name='firstname' type='text' value='#{currentUser.firstname}' || '')
+        input.form-control(name='lastname' type='text' value='#{currentUser.lastname}' || '')
+        button.ui-button.ui-corner-all.ui-widget(type='submit') Update

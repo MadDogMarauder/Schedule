@@ -57,17 +57,13 @@ module.exports = function (sequelize, DataTypes){
     // return cb(null,options);
     var passwordHook = function(user,options, cb){
         if(!user.changed('password')){
-            console.log('\t\t\tNo change in password. No need to hash the password.');
             return cb(null,options);
         }
-        console.log('\t\t\tInfo: Creating a hash for the password');
         bcrypt.genSalt(SALT_FACTOR, function(err,salt){
             if (err){ return cb(err);}
             bcrypt.hash(user.password, salt, noop, function (err, hashedPassword){
                 if (err){ return cb(err);}
                 user.set('password', hashedPassword);
-                console.log('\t\tHash:' + hashedPassword);
-                console.log('\t\tUser.Password' + user.password);
                 return cb(null,options);
             });
         });

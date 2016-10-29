@@ -5,7 +5,7 @@ var passport = require('passport');
 var router = express.Router();
 
 //isAuthenticated
-function isAuthenticated(req,res,next){
+function userAuthenticated(req,res,next){
     if (req.isAuthenticated()){
         next();
     }else{
@@ -98,7 +98,7 @@ router.get('/users/:username', function (req,res,next) {
 });
 
 router.get('/login',function(req,res){
-   res.render('login');
+    res.render('login');
 });
 
 router.post('/login',passport.authenticate('local',{
@@ -109,5 +109,24 @@ router.post('/login',passport.authenticate('local',{
 router.get('/logout',function(req,res){
     req.logout();
     res.redirect('/');
+});
+router.get('/editUser',userAuthenticated,function (req,res) {
+    res.render('editUser');
+});
+router.post('/editUser',userAuthenticated,function (req, res, next) {
+    console.log('Requet: ',req.body);
+    req.user.firstname = req.body.firstname;
+    req.user.lastname = req.body.lastname;
+    req.user.save()
+        .then(function (user)
+        {
+            req.flash('info','User updated!');
+            res.redirect('/editUser');
+        }
+        )
+        .catch(function(err){
+        if(err){
+            return next(err);
+        }});
 });
 module.exports = router;

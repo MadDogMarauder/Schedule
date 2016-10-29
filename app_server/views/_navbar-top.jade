@@ -24,7 +24,7 @@ mixin topnav(name, id, style)
             ul.nav.navbar-nav(class=['navbar','navbar-nav','navbar-right'])
                 if currentUser
                     p(class='navbar-text navbar-right') Signed in as
-                        a(href='/edit') #{currentUser.username}
+                        a(href='/editUser') #{currentUser.username}
                 else
                     li
                         a(href='/login') Login in

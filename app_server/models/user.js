@@ -45,7 +45,8 @@ module.exports = function (sequelize, DataTypes){
         },
         getterMethods:{
             fullName: function () {
-                return this.firstname + ' ' + this.lastname;
+                var name = this.firstname + ' ' + this.lastname;
+                return name.toString();
             }
         }
     });

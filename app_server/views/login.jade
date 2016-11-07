@@ -14,6 +14,7 @@ block content
                         div.form-group
                             label(for='password') Password:
                             input#password.form-control(type='password' placeholder='hmm...' name='password' required)
+                            input(name='_csrf' value='#{csrfToken}' type='hidden')
                         div.form-group(align='center')
                             p
                         div.col.text-center

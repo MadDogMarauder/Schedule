@@ -15,52 +15,6 @@ html {
     color: white;
 }
 
-body {
-    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-    margin:0;
-    padding:0;
-    /* Margin bottom by footer height */
-    margin-bottom: 60px;
-}
-
-
-.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
-    color: #000;  /*Sets the text hover color on navbar*/
-}
-
-.navbar-brand{
-    padding: 8px;
-}
-.navbar-brand>img{
-    height: 100%;
-    padding: 1px;
-    width: auto;
-}
-.navbar-default .navbar-brand {
-    color: whitesmoke;
-}
-.navbar-default .navbar-text {
-    color: whitesmoke;
-}
-.navbar-default {
-    background-color:#2c3b41;
-    padding-left: 5px;
-    min-height: 50px;
-}
-.navbar-default .navbar-nav > li > a{
-    color: whitesmoke;
-}
-.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active >
-a:hover, .navbar-default .navbar-nav > .active > a:focus {
-    color: whitesmoke; /*BACKGROUND color for active*/
-    background-color:  rgba(38, 131, 176, 0.84);
-}
-
-.navbar-right{
-    margin-right: 1px;
-    padding-right: 5px;
-
-}
 .panel-default>.panel-heading {
     color: white;
     background:#0972a5 url(../jquery_ui/images/ui-bg_highlight-hard_20_0972a5_1x100.png) 50% 50% repeat-x;

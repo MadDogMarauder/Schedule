@@ -15,7 +15,7 @@ mixin topnav(name, id, style)
                 span.icon-bar
                 span.icon-bar
                 span.icon-bar
-            a.navbar-brand(href='#')
+            a.navbar-brand(href='/')
                 i(class='fa fa-calendar fa-2x' aria-hidden='true')  #{name}
 
         .collapse.navbar-collapse( id=id )
@@ -24,12 +24,12 @@ mixin topnav(name, id, style)
             ul.nav.navbar-nav(class=['navbar','navbar-nav','navbar-right'])
                 if currentUser
                     p(class='navbar-text navbar-right') Signed in as
-                        a(href='/editUser') #{currentUser.username}
+                        a(href='/editUser') &#32;#{currentUser.username}
                 else
                     li
                         a(href='/login') Login in
                     li
-                        a(href='/signup') Sign up
+                        a(href='/signup') Sign up &#32;
     div.container
         each error in errors
             div.alert.alert-danger(role='alert')

@@ -3,6 +3,8 @@ var models = require('../models');
 var express = require('express');
 var passport = require('passport');
 var router = express.Router();
+var ctrlLogin = require('../controllers/login');
+
 
 //isAuthenticated
 function userAuthenticated(req,res,next){
@@ -96,11 +98,8 @@ router.get('/users/:username', function (req,res,next) {
             if(err){return next (err);}
         });
 });
-
-router.get('/login',function(req,res){
-    res.render('login');
-});
-
+// Login pages
+router.get('/login', ctrlLogin.userLogin);
 router.post('/login',passport.authenticate('local',{
     successRedirect:'/',
     failureRedirect: '/login',
@@ -110,6 +109,7 @@ router.get('/logout',function(req,res){
     req.logout();
     res.redirect('/');
 });
+
 router.get('/editUser',userAuthenticated,function (req,res) {
     res.render('editUser');
 });

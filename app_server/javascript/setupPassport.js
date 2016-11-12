@@ -2,6 +2,7 @@
 
 var models = require('../models'); // used for the user model used for authentication
 var passport = require('passport');// passport library
+var Sequelize = require('sequelize');
 var LocalStrategy = require('passport-local').Strategy;
 
 
@@ -28,10 +29,7 @@ module.exports = function (app) {
     // Define how to authenticate the user
     passport.use(new LocalStrategy(function (username, password,done){
         models.User.findOne({
-            where: {
-                username: username
-            }
-
+            where: Sequelize.where(Sequelize.fn('lower',Sequelize.col('username')),Sequelize.fn('lower',username))
         }) .then(function(user){
             if(!user) {
                 return done(null, false, {message: 'Unknown user.'});

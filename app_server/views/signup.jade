@@ -2,21 +2,23 @@ extends layout
 
 block content
 
-    div.class.row
-        div.class.col-md-4.col-md-offset-4
-            div.panel.panel-default
-                div.panel-heading.panel-title Create a new user...
-                div.panel-body
+    .row
+        .col-xs-12.col-sm-5.col-md-4.col-md-offset-4.col-sm-offset-4
+
+            .panel.panel-default
+                .panel-heading.panel-title Create a new user...
+                .panel-body
                     form(action='/signup',method='post')
-                        div.form-group
+                        .form-group
                             label(for='username') User Name:
                             input#username.form-control(type='text' placeholder='Type your user name' name='username' required autofocus)
-                        div.form-group
+                        .form-group
                             label(for='password') Password:
-                            input#password.form-control(type='password' placeholder='Be creative...' required)
-                        div.form-group(align='center')
+                            input#password.form-control(type='password' placeholder='Be creative...' required name='password')
+                            input(name='_csrf' value='#{csrfToken}' type='hidden')
+                        .form-group(align='center')
                             p
-                        div.col.text-center
+                        .col.text-center
                             button.ui-button.ui-corner-all.ui-widget(type='submit') Sign up
 
 

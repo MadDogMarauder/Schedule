@@ -3,10 +3,13 @@ var models = require('../models');
 var express = require('express');
 var passport = require('passport');
 var router = express.Router();
-var ctrlLogin = require('../controllers/login');
+var ctrlLogin = require('../controllers/user');
+var ctrlEvents = require('../controllers/events');
 
+// Goal is to create a single routes file that uses a controller with a logical collection of screens
 
 //isAuthenticated
+//User permission function that checks the user has authorization to access the screen
 function userAuthenticated(req,res,next){
     if (req.isAuthenticated()){
         next();
@@ -16,65 +19,13 @@ function userAuthenticated(req,res,next){
     }
 }
 
-// Variables for templates
-router.use(function (req,res,next){
-    res.locals.currentUser = req.user;
-    res.locals.errors = req.flash('error');
-    res.locals.infos = req.flash('info');
-    next();
-});
-
 /* GET home page. */
-router.get('/', function(req, res) {
-    models.User.findAll({
-        order: '"createdAt" DESC'
-    })
-        .then(function(users){
-            res.render('index', {
-                title: 'Family Schedule',
-                users: users
-            });
-        });
-});
+router.get('/',ctrlEvents.homelist);
 
 //user signup
-router.get('/signup',function(req,res){
-    res.render('signup');
-});
-router.post('/signup', function(req, res, next) {
-    var username = req.body.username;
-    var password = req.body.password;
-
-    models.User.findOne({
-        where: {
-            username: username
-        }
-    })
-        .then(function (user) {
-            if (user) {
-                //user found
-                console.info('User ' + username + ' found. User already exists.');
-                req.flash('error', 'User already exists');
-            }
-            else {
-                console.log('User not found');
-            }
-            var  User = models.User;
-            var newUser = User.build({
-                username: username,
-                password: password
-            });
-
-            newUser.save()
-                .then(function(){
-                    console.log('User ' + username + ' saved!');
-                }
-                ).catch(function(error){
-                    console.log('Could not save to the database!');
-                    console.log(error);
-            });
-        });
-}, passport.authenticate('login',{
+router.get('/signup',ctrlLogin.userSignup);
+// todo this does not appear to log the user into the home page
+router.post('/signup', ctrlLogin.userSignupSave, passport.authenticate('login',{
     successRedirect:'/',
     failureRedirect: '/signup',
     failureFlash:true
@@ -98,7 +49,8 @@ router.get('/users/:username', function (req,res,next) {
             if(err){return next (err);}
         });
 });
-// Login pages
+
+// User Management
 router.get('/login', ctrlLogin.userLogin);
 router.post('/login',passport.authenticate('local',{
     successRedirect:'/',
@@ -120,7 +72,7 @@ router.post('/editUser',userAuthenticated,function (req, res, next) {
     req.user.save()
         .then(function (user)
         {
-            req.flash('info','User updated!');
+            req.flash('info','User '+ user.username +'updated!');
             res.redirect('/editUser');
         }
         )

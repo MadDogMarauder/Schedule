@@ -14,7 +14,6 @@ var ms = require('ms');
 var csurf = require('csurf');
 
 var routes = require('./app_server/routes/index');
-var users = require('./app_server/routes/users');
 
 var app = express();
 //Security
@@ -56,35 +55,36 @@ app.use(csurf());
 app.use(express.static(path.join(__dirname,'public')));
 setupPassword(app);
 
-app.use(function (err,req,res,next) {
-    if (err.code !== 'EBADCSRFTOKEN'){
-        next(err);
-        return;
-    }
-    res.status(403);
-    res.send('CSRF error.');
+
+// Add a common set of variables that can be used for each page
+app.use(function (req,res,next){
+    res.locals.currentUser = req.user;
+    res.locals.errors = req.flash('error');
+    res.locals.infos = req.flash('info');
+    next();
 });
+
 app.use(routes);
 
 
 // Handle requests for unknown sources 404 errors
-// This works by creating an error and passing it to the error handler below
-app.use(function (req, res) {
-    var err = new Error('Page not found.');
-    err.status = 404;
-    console.error(err);
-
-    res.render('error',{
-        message: err.message,
-        error:{}
-    })
-});
+// app.use(function (req, res) {
+//     var err = new Error('Page not found.');
+//     err.status = 404;
+//     console.error(err);
+//
+//     res.render('error',{
+//         message: err.message,
+//         error:{}
+//     })
+// });
 
 
 // error handlers
 
 // Handle CSRF errors
 app.use(function(err,req,res,next){
+    console.log(err);
     if (err.code !== 'EBADCSRFTOKEN'){
         next(err);
         return;
@@ -96,13 +96,13 @@ app.use(function(err,req,res,next){
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
-});
+// app.use(function(err, req, res) {
+//   res.status(err.status || 500);
+//   res.render('error', {
+//     message: err.message,
+//     error: {}
+//   });
+// });
 
 
 module.exports = app;

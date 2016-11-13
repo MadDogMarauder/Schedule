@@ -3,7 +3,7 @@ var models = require('../models');
 var express = require('express');
 var passport = require('passport');
 var router = express.Router();
-var ctrlLogin = require('../controllers/user');
+var ctrlUser = require('../controllers/user');
 var ctrlEvents = require('../controllers/events');
 
 // Goal is to create a single routes file that uses a controller with a logical collection of screens
@@ -23,9 +23,9 @@ function userAuthenticated(req,res,next){
 router.get('/',ctrlEvents.homelist);
 
 //user signup
-router.get('/signup',ctrlLogin.userSignup);
+router.get('/signup',ctrlUser.userSignup);
 // todo this does not appear to log the user into the home page
-router.post('/signup', ctrlLogin.userSignupSave, passport.authenticate('login',{
+router.post('/signup', ctrlUser.userSignupSave, passport.authenticate('login',{
     successRedirect:'/',
     failureRedirect: '/signup',
     failureFlash:true
@@ -51,7 +51,7 @@ router.get('/users/:username', function (req,res,next) {
 });
 
 // User Management
-router.get('/login', ctrlLogin.userLogin);
+router.get('/login', ctrlUser.userLogin);
 router.post('/login',passport.authenticate('local',{
     successRedirect:'/',
     failureRedirect: '/login',
@@ -62,23 +62,6 @@ router.get('/logout',function(req,res){
     res.redirect('/');
 });
 
-router.get('/editUser',userAuthenticated,function (req,res) {
-    res.render('editUser');
-});
-router.post('/editUser',userAuthenticated,function (req, res, next) {
-    console.log('Requet: ',req.body);
-    req.user.firstname = req.body.firstname;
-    req.user.lastname = req.body.lastname;
-    req.user.save()
-        .then(function (user)
-        {
-            req.flash('info','User '+ user.username +'updated!');
-            res.redirect('/editUser');
-        }
-        )
-        .catch(function(err){
-        if(err){
-            return next(err);
-        }});
-});
+router.get('/editUser',userAuthenticated,ctrlUser.userEdit);
+router.post('/editUser',userAuthenticated,ctrlUser.userEditSave);
 module.exports = router;

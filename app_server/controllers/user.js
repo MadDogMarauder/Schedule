@@ -1,3 +1,4 @@
+var Sequelize = require('sequelize');
 var models = require('../models');
 
 // login controller
@@ -24,9 +25,8 @@ module.exports.userSignupSave = function(req, res, next) {
     var password = req.body.password;
 
     models.User.findOne({
-        where: {
-            username: username
-        }
+        where: Sequelize.where(Sequelize.fn('lower',Sequelize.col('username')),Sequelize.fn('lower',username))
+
     })
         .then(function (user) {
             if (user) {
@@ -52,4 +52,31 @@ module.exports.userSignupSave = function(req, res, next) {
                 console.log(error);
             });
         });
+};
+
+// GET Edit User
+module.exports.userEdit = function (req,res) {
+    res.render('editUser',{
+        csrfToken: req.csrfToken()
+    });
+};
+
+// POST Save user changes
+module.exports.userEditSave = function (req, res, next) {
+    console.log('Request: ',req.body);
+    req.user.firstname = req.body.firstname;
+    req.user.lastname = req.body.lastname;
+    req.user.username = req.body.username;
+    req.user.email = req.body.email;
+    req.user.save()
+        .then(function (user)
+            {
+                req.flash('success','User '+ user.username +' updated!');
+                res.redirect('/editUser');
+            }
+        )
+        .catch(function(err){
+            if(err){
+                return next(err);
+            }});
 };

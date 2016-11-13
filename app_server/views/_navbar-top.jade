@@ -6,6 +6,7 @@
     style - 'default' or 'inverse'
 mixin topnav(name, id, style)
     - var style = (typeof style === 'undefined') ? 'default' : style
+    - var user = (typeof currentUser === 'undefined') ? '' : currentUser.username
 
     nav( role='navigation', class=['navbar', 'navbar-' + style, 'navbar-static-top'] )
 
@@ -23,13 +24,25 @@ mixin topnav(name, id, style)
                 li(class='active'): a(href='/') home
             ul.nav.navbar-nav(class=['navbar','navbar-nav','navbar-right'])
                 if currentUser
-                    p(class='navbar-text navbar-right') Signed in as
-                        a(href='/editUser') &#32;#{currentUser.username}
+                    .btn-group
+                        if currentUser.firstname.length
+                            - user = currentUser.firstname
+                        button.btn.btn-default.btn-lg.dropdown-toggle(type='button' data-toggle='dropdown' aria-haspopup='true') #{user} &#32;
+                            span(class='caret')
+                        ul.dropdown-menu
+                            li
+                                a(href='/editUser') Edit User
+                            li
+                                a(href='/logout') Logout
                 else
-                    li
-                        a(href='/login') Login in
-                    li
-                        a(href='/signup') Sign up &#32;
+                    .btn-group
+                        button.btn.btn-default.btn-lg.dropdown-toggle(type='button' data-toggle='dropdown' aria-haspopup='true') Sign In &#32;
+                            span(class='caret')
+                        ul.dropdown-menu
+                            li
+                                a(href='/login') Login in
+                            li
+                                a(href='/signup') Sign up &#32;
     div.container
         each error in errors
             div.alert.alert-danger(role='alert')
@@ -37,6 +50,13 @@ mixin topnav(name, id, style)
         each info in infos
             div.alert.alert-info(role='alert')
                 p #{info}
+        each warning in warnings
+            .alert.alert-warning(role='alert')
+                p #{warning}
+        each success in successes
+            .alert.alert-success(role='alert')
+                p #{success}
+
 
 
 

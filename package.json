@@ -6,7 +6,8 @@
     "start": "forever ./bin/www",
     "test": "mocha",
     "audit": "nsp check",
-    "grunt": "grunt"
+    "grunt": "grunt",
+    "css": "grunt dist-css"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",

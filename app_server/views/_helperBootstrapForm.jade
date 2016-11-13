@@ -1,0 +1,15 @@
+//
+   Created by ramirez on 12/11/2016.
+// Mixin helper functions for forms
+
+// Panel setup
+mixin formPanelEnd(textSubmit)
+    .col.text-center
+        p
+        button.ui-button.ui-corner-all.ui-widget(type='submit') #{textSubmit}
+
+mixin formInputText(label,inputName,textPlaceholder, dbValue, isRequired, isAutoFocus)
+    div.form-group
+        label #{label}
+        input.form-control(type='text' placeholder='#{textPlaceholder}' name='#{inputName}' value=dbValue required=isRequired autofocus=isAutoFocus)
+

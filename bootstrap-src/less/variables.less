@@ -7,14 +7,20 @@
 //
 //## Gray and brand colors for use across Bootstrap.
 
-@gray-base:              #000;
+//Additional color
+@myblue:                rgba(38,131,176,.84);
+@myBackgroundColor:     #2c3b41;
+
+//@gray-base:              #000;
+@gray-base:              darken(@myBackgroundColor,80%);
 @gray-darker:            lighten(@gray-base, 13.5%); // #222
 @gray-dark:              lighten(@gray-base, 20%);   // #333
 @gray:                   lighten(@gray-base, 33.5%); // #555
 @gray-light:             lighten(@gray-base, 46.7%); // #777
 @gray-lighter:           lighten(@gray-base, 93.5%); // #eee
 
-@brand-primary:         darken(#428bca, 6.5%); // #337ab7
+//@brand-primary:         darken(#428bca, 6.5%); // #337ab7
+@brand-primary:         #124784;
 @brand-success:         #5cb85c;
 @brand-info:            #5bc0de;
 @brand-warning:         #f0ad4e;
@@ -26,9 +32,11 @@
 //## Settings for some of the most global styles.
 
 //** Background color for `<body>`.
-@body-bg:               #fff;
+@body-bg:               lighten(@myBackgroundColor,70%);
+
 //** Global text color on `<body>`.
 @text-color:            @gray-dark;
+
 
 //** Global textual link color.
 @link-color:            @brand-primary;
@@ -144,8 +152,8 @@
 
 @btn-font-weight:                normal;
 
-@btn-default-color:              #333;
-@btn-default-bg:                 #fff;
+@btn-default-color:              whitesmoke;
+@btn-default-bg:                 darken(@myblue,10%);
 @btn-default-border:             #ccc;
 
 @btn-primary-color:              #fff;
@@ -232,7 +240,7 @@
 //## Dropdown menu container and contents.
 
 //** Background for the dropdown menu.
-@dropdown-bg:                    #fff;
+@dropdown-bg:                    lighten(@myBackgroundColor,25%);
 //** Dropdown menu `border-color`.
 @dropdown-border:                rgba(0,0,0,.15);
 //** Dropdown menu `border-color` **for IE8**.
@@ -241,11 +249,11 @@
 @dropdown-divider-bg:            #e5e5e5;
 
 //** Dropdown link text color.
-@dropdown-link-color:            @gray-dark;
+@dropdown-link-color:            whitesmoke;
 //** Hover color for dropdown links.
-@dropdown-link-hover-color:      darken(@gray-dark, 5%);
+@dropdown-link-hover-color:      white;
 //** Hover background for dropdown links.
-@dropdown-link-hover-bg:         #f5f5f5;
+@dropdown-link-hover-bg:         darken(@myblue, 20%);
 
 //** Active dropdown menu item text color.
 @dropdown-link-active-color:     @component-active-color;
@@ -365,7 +373,7 @@
 @navbar-collapse-max-height:       340px;
 
 @navbar-default-color:             whitesmoke;
-@navbar-default-bg:                #2c3b41;
+@navbar-default-bg:                @myBackgroundColor;
 @navbar-default-border:            rgba(38, 131, 176, 0.84);
 
 // Navbar links
@@ -499,19 +507,19 @@
 
 @state-success-text:             #3c763d;
 @state-success-bg:               #dff0d8;
-@state-success-border:           darken(spin(@state-success-bg, -10), 5%);
+@state-success-border:           darken(spin(@state-success-bg, -10), 50%);
 
 @state-info-text:                #31708f;
 @state-info-bg:                  #d9edf7;
-@state-info-border:              darken(spin(@state-info-bg, -10), 7%);
+@state-info-border:              darken(spin(@state-info-bg, -10), 50%);
 
 @state-warning-text:             #8a6d3b;
 @state-warning-bg:               #fcf8e3;
-@state-warning-border:           darken(spin(@state-warning-bg, -10), 5%);
+@state-warning-border:           darken(spin(@state-warning-bg, -10), 50%);
 
 @state-danger-text:              #a94442;
 @state-danger-bg:                #f2dede;
-@state-danger-border:            darken(spin(@state-danger-bg, -10), 5%);
+@state-danger-border:            darken(spin(@state-danger-bg, -10), 50%);
 
 
 //== Tooltips
@@ -703,7 +711,7 @@
 //
 //##
 
-@panel-bg:                    #fff;
+@panel-bg:                    lighten(@myBackgroundColor,65%);
 @panel-body-padding:          15px;
 @panel-heading-padding:       10px 15px;
 @panel-footer-padding:        @panel-heading-padding;
@@ -714,7 +722,7 @@
 @panel-footer-bg:             #f5f5f5;
 
 @panel-default-text:          @gray-dark;
-@panel-default-border:        #ddd;
+@panel-default-border:        lighten(black,60%);
 @panel-default-heading-bg:    #f5f5f5;
 
 @panel-primary-text:          white;

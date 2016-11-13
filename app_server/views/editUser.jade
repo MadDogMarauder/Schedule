@@ -1,11 +1,19 @@
-
+include _helperBootstrapForm
 extends layout
 
 block content
-    h1 Edit your profile
-    .panel
 
-    form(action = '/editUser' method='post')
-        input.form-control(name='firstname' type='text' value='#{currentUser.firstname}' || '')
-        input.form-control(name='lastname' type='text' value='#{currentUser.lastname}' || '')
-        button.ui-button.ui-corner-all.ui-widget(type='submit') Update
+    .row
+        .col-sm-4.col-md-4.col-lg-4
+            .panel.panel-default
+                .panel-heading Edit your profile
+                .panel-body
+                    form(action = '/editUser' method='post')
+                        input(name='_csrf' value='#{csrfToken}' type='hidden')
+                        +formInputText('User Name','username','Type your user name',currentUser.username,true,true)
+                        +formInputText('First Name', 'firstname','Your first name',currentUser.firstname,false,false)
+                        +formInputText('Last Name', 'lastname','Your last name',currentUser.lastname,false,false)
+                        +formInputText('Email', 'email','Your email address',currentUser.email,false,false)
+                        +formPanelEnd('Update')
+    p &#32;
+

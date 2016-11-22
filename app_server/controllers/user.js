@@ -56,9 +56,21 @@ module.exports.userSignupSave = function(req, res, next) {
 
 // GET Edit User
 module.exports.userEdit = function (req,res) {
-    res.render('editUser',{
-        csrfToken: req.csrfToken()
+    models.Family.findById(req.user.FamilyId)
+        .then(function(family){
+            //family found
+            console.log(req.csrfToken);
+            res.render('editUser',{
+                csrfToken: req.csrfToken(),
+                family: family
+            });
+        }).catch(function(err){
+            req.flash('error','While finding family');
+            console.error(err);
     });
+
+
+
 };
 
 // POST Save user changes

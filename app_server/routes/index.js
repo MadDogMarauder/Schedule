@@ -5,6 +5,7 @@ var passport = require('passport');
 var router = express.Router();
 var ctrlUser = require('../controllers/user');
 var ctrlEvents = require('../controllers/events');
+var ctrlConfiguration = require('../controllers/configuration');
 
 // Goal is to create a single routes file that uses a controller with a logical collection of screens
 
@@ -64,4 +65,9 @@ router.get('/logout',function(req,res){
 
 router.get('/editUser',userAuthenticated,ctrlUser.userEdit);
 router.post('/editUser',userAuthenticated,ctrlUser.userEditSave);
+
+// Family
+router.get('/configuration/family/:familyid',userAuthenticated,ctrlConfiguration.familyReadOne);
+router.get('/configuration/family/new',userAuthenticated,ctrlConfiguration.familyNew);
+router.post('/configuration/family/:familyid',userAuthenticated,ctrlConfiguration.familyUpdate);
 module.exports = router;

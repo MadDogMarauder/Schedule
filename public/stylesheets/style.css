@@ -17,6 +17,7 @@ html {
 .mainpanel{
     padding-bottom: 10px;
     padding-left: 15px;
+    padding-right: 15px;
     margin: 20px;
 }
 .panel-default>.panel-heading {

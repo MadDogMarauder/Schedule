@@ -1,0 +1,19 @@
+include _helperBootstrapForm
+extends layout
+
+block content
+
+    .row
+        .col-sm-4.col-md-4.col-lg-4
+            .panel.panel-default
+                .panel-heading Family Information...
+                .panel-body
+                    - var actionURL = '/configuration/family/'+family.id
+                    if createNewFamily
+                        - actionURL = '/api/configuration/family/new'
+                    form(action = actionURL method='post')
+                        input(name='_csrf' value=csrfToken type='hidden')
+                        input(name='userid' value=currentUser.id type='hidden')
+                        +formInputText('Family Name','name','The family name',family.name,false,true)
+                        +formInputText('Location','location','Your postal code',family.location,false,false)
+                        +formPanelEnd('Save')

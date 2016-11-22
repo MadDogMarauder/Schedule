@@ -11,5 +11,7 @@ mixin formPanelEnd(textSubmit)
 mixin formInputText(label,inputName,textPlaceholder, dbValue, isRequired, isAutoFocus)
     div.form-group
         label #{label}
+        if !dbValue
+            - dbValue = ''
         input.form-control(type='text' placeholder='#{textPlaceholder}' name='#{inputName}' value=dbValue required=isRequired autofocus=isAutoFocus)
 

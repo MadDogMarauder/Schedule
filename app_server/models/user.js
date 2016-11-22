@@ -48,6 +48,11 @@ module.exports = function (sequelize, DataTypes){
                 var name = this.firstname + ' ' + this.lastname;
                 return name.toString();
             }
+        },
+        classMethods:{
+            associate: function (models) {
+                User.belongsTo(models.Family);
+            }
         }
     });
 
@@ -74,6 +79,10 @@ module.exports = function (sequelize, DataTypes){
 
     return User;
 };
+
+
+
+
 
 
 

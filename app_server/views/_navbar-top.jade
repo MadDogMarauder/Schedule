@@ -25,7 +25,7 @@ mixin topnav(name, id, style)
             ul.nav.navbar-nav(class=['navbar','navbar-nav','navbar-right'])
                 if currentUser
                     .btn-group
-                        if currentUser.firstname.length
+                        if currentUser.firstname
                             - user = currentUser.firstname
                         button.btn.btn-default.btn-lg.dropdown-toggle(type='button' data-toggle='dropdown' aria-haspopup='true') #{user} &#32;
                             span(class='caret')

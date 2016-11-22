@@ -14,6 +14,7 @@ var ms = require('ms');
 var csurf = require('csurf');
 
 var routes = require('./app_server/routes/index');
+var routesApi = require('./app_api/routes/index');
 
 var app = express();
 //Security
@@ -33,6 +34,8 @@ app.use(helmet.xssFilter());
 // view engine setup
 app.set('views', path.join(__dirname, 'app_server', 'views'));
 app.set('view engine', 'jade');
+
+
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -67,6 +70,7 @@ app.use(function (req,res,next){
 });
 
 app.use(routes);
+app.use('/api',routesApi);
 
 
 // Handle requests for unknown sources 404 errors

@@ -6,7 +6,7 @@ block content
     .row
         .col-sm-4.col-md-4.col-lg-4
             .panel.panel-default
-                .panel-heading Edit your profile
+                .panel-heading Edit user information
                 .panel-body
                     form(action = '/editUser' method='post')
                         input(name='_csrf' value='#{csrfToken}' type='hidden')
@@ -14,6 +14,45 @@ block content
                         +formInputText('First Name', 'firstname','Your first name',currentUser.firstname,false,false)
                         +formInputText('Last Name', 'lastname','Your last name',currentUser.lastname,false,false)
                         +formInputText('Email', 'email','Your email address',currentUser.email,false,false)
-                        +formPanelEnd('Update')
+                        +formPanelEnd('Save Changes')
     p &#32;
+    .row
+        .panel.panel-default
+            .panel-heading
+                if family
+                    | #{family.name}
+                else
+                    | Please create your family
+                .panel-title.pull-right
+                    if family
+                        form(action='/configuration/family/'+family.id)
+                            input(name='_csrf' value='#{csrfToken}' type='hidden')
+                            button.ui-button.ui-corner-all.ui-widget(type='submit') Edit
+                    else
+                        form(action='/configuration/family/new')
+                            input(name='_csrf' value='#{csrfToken}' type='hidden')
+                            button.ui-button.ui-corner-all.ui-widget(type='submit') Create
+            .panel-body
+                table(id='tableFamilyMembers')
+                    thead
+                        tr
+                            th(class='dynatable-head' data-dynatable-column='firstName')
+                                a(class='dynatable-short-header' href='#') First Name
+                            th(class='dynatable-head' data-dynatable-column='lastName')
+                                a(class='dynatable-short-header' href='#') Last Name
+                            th(class='dynatable-head' data-dynatable-column='userName')
+                                a(class='dynatable-short-header' href='#') User Name
+                            th(class='dynatable-head' data-dynatable-column='email')
+                                a(class='dynatable-short-header' href='#') Email
+                            th
+                    tbody
+                        +tableRow(currentUser)
 
+
+mixin tableRow(userRecord)
+    tr
+        td(style='text-align: left;') #{userRecord.firstname}
+        td(style='text-align: left;') #{userRecord.lastname}
+        td(style='text-align: left;') #{userRecord.username}
+        td(style='text-align: left;') #{userRecord.email}
+        td(style='text-align: left;') Button

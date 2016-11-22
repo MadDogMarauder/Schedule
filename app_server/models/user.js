@@ -5,6 +5,7 @@
 
 var bcrypt = require('bcrypt-nodejs');
 var SALT_FACTOR = 10;
+var jwt = require('jsonwebtoken');
 
 // Function use for password encryption
 var noop = function () {
@@ -41,6 +42,17 @@ module.exports = function (sequelize, DataTypes){
                 bcrypt.compare(guess,this.password,function(err, isMatch){
                     done(err,isMatch);
                 });
+            },
+            generateJwt: function(){
+                var expiry = new Date();
+                expiry.setDate(expiry.getDate()+7);
+
+                return jwt.sign({
+                    id: this.id,
+                    username: this.username,
+                    name: this.firstname,
+                    exp: parseInt(expiry.getTime()/1000)
+                },process.env.JWT_SECRET);
             }
         },
         getterMethods:{

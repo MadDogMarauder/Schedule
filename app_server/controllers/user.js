@@ -1,12 +1,12 @@
 var Sequelize = require('sequelize');
 var models = require('../models');
 
+
 // login controller
 
 // Login form for the site
 module.exports.userLogin = function(req,res){
     res.render('login',{
-        csrfToken: req.csrfToken()
     });
 };
 
@@ -14,7 +14,7 @@ module.exports.userLogin = function(req,res){
 // Form for users to sign up for the system
 module.exports.userSignup = function (req,res){
     res.render('signup',{
-        csrfToken: req.csrfToken()
+
     });
 };
 
@@ -59,9 +59,7 @@ module.exports.userEdit = function (req,res) {
     models.Family.findById(req.user.FamilyId)
         .then(function(family){
             //family found
-            console.log(req.csrfToken);
             res.render('editUser',{
-                csrfToken: req.csrfToken(),
                 family: family
             });
         }).catch(function(err){

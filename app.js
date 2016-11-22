@@ -1,3 +1,4 @@
+require('dotenv').config({path:'./app_server/config/.env'});
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -11,7 +12,7 @@ var setupPassword = require('./app_server/javascript/setupPassport');
 var enforeSSL = require('express-enforces-ssl');
 var helmet = require('helmet');
 var ms = require('ms');
-var csurf = require('csurf');
+
 
 var routes = require('./app_server/routes/index');
 var routesApi = require('./app_api/routes/index');
@@ -46,14 +47,14 @@ app.use(cookieParser());
 
 // Not sure on the following:
 app.use(session({
-    secret: "TKRv0IJs=whyNotSelectAsecret1208%$",
+    secret: process.env.USER_SESSION,
     resave: true,
     saveUninitialized: true
 }));
 
 app.use(flash());
 //Token protection middleware
-app.use(csurf());
+
 // Set the public files for the application. All under 'public'
 app.use(express.static(path.join(__dirname,'public')));
 setupPassword(app);
@@ -66,6 +67,9 @@ app.use(function (req,res,next){
     res.locals.infos = req.flash('info');
     res.locals.warnings = req.flash('warning');
     res.locals.successes = req.flash('success');
+    if (req.user){
+        res.locals.token = req.user.generateJwt();
+    }
     next();
 });
 
@@ -91,13 +95,15 @@ app.use('/api',routesApi);
 // Handle CSRF errors
 app.use(function(err,req,res,next){
     console.log(err);
-    if (err.code !== 'EBADCSRFTOKEN'){
-        next(err);
-        return;
+    if (err.name === 'UnauthorizedError'){
+        res.render('error',{
+            message: err.message,
+            error: err
+        });
     }
     res.status(403);
     // ToDo: change error returned
-    res.send('CSRF error');
+    res.send('Authetication error');
 });
 
 // production error handler

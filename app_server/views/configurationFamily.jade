@@ -12,7 +12,6 @@ block content
                     if createNewFamily
                         - actionURL = '/api/configuration/family/new'
                     form(action = actionURL method='post')
-                        input(name='_csrf' value=csrfToken type='hidden')
                         input(name='userid' value=currentUser.id type='hidden')
                         +formInputText('Family Name','name','The family name',family.name,false,true)
                         +formInputText('Location','location','Your postal code',family.location,false,false)

@@ -20,11 +20,13 @@ var _showError = function(req,res,status,data){
 };
 var getFamilyInfo = function(req, res, callback){
     var requestOptions, path;
+    var token = req.user.generateJwt();
 
     path = '/api/configuration/family/' + req.params.familyid;
     requestOptions = {
         url: apiOptions.server + path,
         method: 'GET',
+        headers: {'authorization': 'Bearer '+ token},
         json: {}
     };
     request(requestOptions,function(err,response,body){
@@ -38,13 +40,11 @@ var getFamilyInfo = function(req, res, callback){
 
 var renderFamilyReadOne = function (req,res, responseBody) {
     res.render('configurationFamily',{
-        csrfToken: req.csrfToken(),
         family: responseBody
     });
 };
 var renderFamilyCreate = function (req,res) {
     res.render('configurationFamily',{
-        csrfToken: req.csrfToken(),
         createNewFamily: true
     });
 };
@@ -63,17 +63,21 @@ module.exports.familyReadOne = function (req,res) {
 
 module.exports.familyUpdate = function (req,res){
     var requestOptions, path;
-    var csrfToken = req.csrfToken();
-
+    var token = req.user.generateJwt();
     path = '/api/configuration/family/' + req.params.familyid;
     requestOptions = {
         url: apiOptions.server + path,
         method: 'PUT',
-        headers: {'x-csrf-token': csrfToken},
-        json: {}
+        headers: {'authorization': 'Bearer '+ token},
+        json: {
+            name: req.body.name,
+            location: req.body.location
+        }
     };
     console.log(requestOptions);
     request(requestOptions,function(err,response,data){
+        console.log(data);
+        console.log(response.body);
         if (response.statusCode===200){
             renderFamilyReadOne(req,res,data);
         }else {

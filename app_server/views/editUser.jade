@@ -26,11 +26,9 @@ block content
                 .panel-title.pull-right
                     if family
                         form(action='/configuration/family/'+family.id)
-                            input(name='_csrf' value='#{csrfToken}' type='hidden')
                             button.ui-button.ui-corner-all.ui-widget(type='submit') Edit
                     else
                         form(action='/configuration/family/new')
-                            input(name='_csrf' value='#{csrfToken}' type='hidden')
                             button.ui-button.ui-corner-all.ui-widget(type='submit') Create
             .panel-body
                 table(id='tableFamilyMembers')

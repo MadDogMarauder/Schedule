@@ -10,6 +10,8 @@
 //Additional color
 @myblue:                rgba(38,131,176,.84);
 @myBackgroundColor:     #2c3b41;
+@navActiveColor:        #27779d;
+
 
 //@gray-base:              #000;
 @gray-base:              darken(@myBackgroundColor,80%);
@@ -39,9 +41,9 @@
 
 
 //** Global textual link color.
-@link-color:            @brand-primary;
+@link-color:            whitesmoke;
 //** Link hover color set via `darken()` function.
-@link-hover-color:      darken(@link-color, 15%);
+@link-hover-color:      darken(@link-color, 50%);
 //** Link hover decoration.
 @link-hover-decoration: underline;
 
@@ -448,7 +450,8 @@
 
 //== Pills
 @nav-pills-border-radius:                   @border-radius-base;
-@nav-pills-active-link-hover-bg:            @component-active-bg;
+//@nav-pills-active-link-hover-bg:            @component-active-bg;
+@nav-pills-active-link-hover-bg:            @navActiveColor;
 @nav-pills-active-link-hover-color:         @component-active-color;
 
 

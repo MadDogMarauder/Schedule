@@ -60,7 +60,8 @@ module.exports.userEdit = function (req,res) {
         .then(function(family){
             //family found
             res.render('editUser',{
-                family: family
+                family: family,
+                topMenu: 'Configuration'
             });
         }).catch(function(err){
             req.flash('error','While finding family');

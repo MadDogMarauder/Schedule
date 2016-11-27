@@ -14,12 +14,26 @@ html
         link(rel='stylesheet', href='/stylesheets/style.css')
 
     body
-
-            //- Top Navbar
-            +topnav('Schedule','TopNavbar')
-
-            .mainpanel
-                block content
+        //- Top Navbar
+        +topnav('Schedule','TopNavbar')
+        .container-fluid
+            .row
+                .col-sm-3.col-lg-2.my-side-menu
+                    include _navSideMenu
+                .col-sm-9.col-lg-10.container
+                    each error in errors
+                        div.alert.alert-danger(role='alert')
+                            p #{error}
+                    each info in infos
+                        div.alert.alert-info(role='alert')
+                            p #{info}
+                    each warning in warnings
+                        .alert.alert-warning(role='alert')
+                            p #{warning}
+                    each success in successes
+                        .alert.alert-success(role='alert')
+                            p #{success}
+                    block content
 
         include _footer
 

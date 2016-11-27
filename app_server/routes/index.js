@@ -13,6 +13,7 @@ var ctrlConfiguration = require('../controllers/configuration');
 //User permission function that checks the user has authorization to access the screen
 function userAuthenticated(req,res,next){
     if (req.isAuthenticated()){
+        res.locals.userAthenticated = true;
         next();
     }else{
         req.flash('info','You must be logged in to see this page.');
@@ -21,7 +22,7 @@ function userAuthenticated(req,res,next){
 }
 
 /* GET home page. */
-router.get('/',ctrlEvents.homelist);
+router.get('/',userAuthenticated,ctrlEvents.homelist);
 
 //user signup
 router.get('/signup',ctrlUser.userSignup);

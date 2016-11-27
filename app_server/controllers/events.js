@@ -20,7 +20,8 @@ module.exports.homelist = function(req,res){
         .then(function(users){
             res.render('index', {
                 title: 'Family Schedule',
-                users: users
+                users: users,
+                topMenu: 'Home'
             });
         });
 };

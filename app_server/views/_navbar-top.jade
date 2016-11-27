@@ -20,8 +20,6 @@ mixin topnav(name, id, style)
                 i(class='fa fa-calendar fa-2x' aria-hidden='true')  #{name}
 
         .collapse.navbar-collapse( id=id )
-            ul.nav.navbar-nav
-                li(class='active'): a(href='/') home
             ul.nav.navbar-nav(class=['navbar','navbar-nav','navbar-right'])
                 if currentUser
                     .btn-group
@@ -40,22 +38,10 @@ mixin topnav(name, id, style)
                             span(class='caret')
                         ul.dropdown-menu
                             li
-                                a(href='/login') Login in
+                                a(href='/login') Login
                             li
                                 a(href='/signup') Sign up &#32;
-    div.container
-        each error in errors
-            div.alert.alert-danger(role='alert')
-                p #{error}
-        each info in infos
-            div.alert.alert-info(role='alert')
-                p #{info}
-        each warning in warnings
-            .alert.alert-warning(role='alert')
-                p #{warning}
-        each success in successes
-            .alert.alert-success(role='alert')
-                p #{success}
+
 
 
 

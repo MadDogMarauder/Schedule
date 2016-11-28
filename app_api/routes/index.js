@@ -21,4 +21,10 @@ router.put('/configuration/family/:familyid',auth,ctrlConfiguration.familyUpdate
 //      to delete it, the user should simply update the existing record
 //router.delete('/configuration/family/:familyid',ctrlConfiguration.familyDeleteOne);
 
+// Person (Family members
+//      These are the people that make up the family
+router.get('/configuration/person/:personid',auth,ctrlConfiguration.personReadOne);
+router.post('/configuration/person/new',auth,ctrlConfiguration.personCreate);
+router.put('/configuration/person/:personid',auth,ctrlConfiguration.personUpdateOne);
+router.delete('/configuration/person/:personid',auth,ctrlConfiguration.personDeleteOne);
 module.exports = router;

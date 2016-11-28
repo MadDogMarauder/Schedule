@@ -68,7 +68,15 @@ router.get('/editUser',userAuthenticated,ctrlUser.userEdit);
 router.post('/editUser',userAuthenticated,ctrlUser.userEditSave);
 
 // Family
-router.get('/configuration/family/:familyid',userAuthenticated,ctrlConfiguration.familyReadOne);
 router.get('/configuration/family/new',userAuthenticated,ctrlConfiguration.familyNew);
+router.get('/configuration/family/:familyid',userAuthenticated,ctrlConfiguration.familyReadOne);
+router.post('/configuration/family/new',userAuthenticated,ctrlConfiguration.familyCreate);
 router.post('/configuration/family/:familyid',userAuthenticated,ctrlConfiguration.familyUpdate);
+
+// Person
+router.get('/configuration/person/new',userAuthenticated,ctrlConfiguration.personNew);
+router.post('/configuration/person/new',userAuthenticated,ctrlConfiguration.personCreate);
+router.get('/configuration/person/:personid',userAuthenticated,ctrlConfiguration.personReadOne);
+router.get('/configuration/person/delete/:personid',userAuthenticated,ctrlConfiguration.personDelete);
+router.post('/configuration/person/:personid',userAuthenticated,ctrlConfiguration.personUpdateOne);
 module.exports = router;

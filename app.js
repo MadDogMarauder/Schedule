@@ -78,16 +78,16 @@ app.use('/api',routesApi);
 
 
 // Handle requests for unknown sources 404 errors
-// app.use(function (req, res) {
-//     var err = new Error('Page not found.');
-//     err.status = 404;
-//     console.error(err);
-//
-//     res.render('error',{
-//         message: err.message,
-//         error:{}
-//     })
-// });
+app.use(function (req, res) {
+    var err = new Error('Page not found.');
+    err.status = 404;
+    console.error(err);
+
+    res.render('error',{
+        message: err.message,
+        error:{}
+    })
+});
 
 
 // error handlers
@@ -97,9 +97,15 @@ app.use(function(err,req,res,next){
     console.log(err);
     if (err.name === 'UnauthorizedError'){
         res.render('error',{
-            message: err.message,
+            message: 'Unauthorized error :' + err.message,
             error: err
         });
+    }
+    if (err){
+        res.render('error',{
+            message: err.message,
+            error: err
+        })
     }
     res.status(403);
     // ToDo: change error returned

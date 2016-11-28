@@ -21,17 +21,6 @@ module.exports = function (sequelize, DataTypes){
         password: {
             type: DataTypes.STRING,
             allowNull: false
-        },
-        firstname: {
-            type: DataTypes.STRING
-        },
-        lastname: {
-            type: DataTypes.STRING
-        },
-        email: {
-            type: DataTypes.STRING,
-            // Add validation
-            isEmail: true
         }
     }, {
         // Do not delete records
@@ -50,20 +39,15 @@ module.exports = function (sequelize, DataTypes){
                 return jwt.sign({
                     id: this.id,
                     username: this.username,
-                    name: this.firstname,
+                    password: this.password,
                     exp: parseInt(expiry.getTime()/1000)
                 },process.env.JWT_SECRET);
-            }
-        },
-        getterMethods:{
-            fullName: function () {
-                var name = this.firstname + ' ' + this.lastname;
-                return name.toString();
             }
         },
         classMethods:{
             associate: function (models) {
                 User.belongsTo(models.Family);
+                User.hasOne(models.Person);
             }
         }
     });

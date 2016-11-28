@@ -56,7 +56,13 @@ module.exports.userSignupSave = function(req, res, next) {
 
 // GET Edit User
 module.exports.userEdit = function (req,res) {
-    models.Family.findById(req.user.FamilyId)
+    models.Family.findById(req.user.FamilyId,{include: [ models.Person], order: '"People.firstname" ASC'} )
+    // models.Family.findAll({
+    //     include: [{
+    //         model: models.Person,
+    //         where: {id: req.user.FamilyId}
+    //     }]
+    // })
         .then(function(family){
             //family found
             res.render('editUser',{

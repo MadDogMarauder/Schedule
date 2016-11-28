@@ -17,40 +17,42 @@ block content
                         +formPanelEnd('Save Changes')
     p &#32;
     .row
-        .panel.panel-default
-            .panel-heading
-                if family
-                    | #{family.name}
-                else
-                    | Please create your family
-                .panel-title.pull-right
+        .col-sm-8
+            .panel.panel-default
+                .panel-heading
                     if family
-                        form(action='/configuration/family/'+family.id)
-                            button.ui-button.ui-corner-all.ui-widget(type='submit') Edit
+                        .panel-title.pull-left
+                        form(action='/configuration/family/' + family.id)
+                            button.ui-button.ui-corner-all.ui-widget(type='submit') #{family.name} (Edit Family)
+                        form(action='/configuration/person/new')
+                            button.ui-button.ui-corner-all.ui-widget.pull-right(type='submit') Add Person
                     else
+                        .panel-title.pull-left Please create your family
                         form(action='/configuration/family/new')
-                            button.ui-button.ui-corner-all.ui-widget(type='submit') Create
-            .panel-body
-                table(id='tableFamilyMembers')
-                    thead
-                        tr
-                            th(class='dynatable-head' data-dynatable-column='firstName')
-                                a(class='dynatable-short-header' href='#') First Name
-                            th(class='dynatable-head' data-dynatable-column='lastName')
-                                a(class='dynatable-short-header' href='#') Last Name
-                            th(class='dynatable-head' data-dynatable-column='userName')
-                                a(class='dynatable-short-header' href='#') User Name
-                            th(class='dynatable-head' data-dynatable-column='email')
-                                a(class='dynatable-short-header' href='#') Email
-                            th
-                    tbody
-                        +tableRow(currentUser)
+                            button.ui-button.ui-corner-all.ui-widget(type='submit') Create Family
+
+                .panel-body
+                    table.table.table-bordered
+                        thead
+                            tr
+                                th.col-sm-2 First Name
+                                th.col-sm-2 Role
+                                th.col-sm-2 Email
+                                th.col-sm-2 Actions
+
+                        tbody
+                            if family.People.length > 0
+                                each person in family.People
+                                    +tableRow(person)
 
 
 mixin tableRow(userRecord)
     tr
         td(style='text-align: left;') #{userRecord.firstname}
-        td(style='text-align: left;') #{userRecord.lastname}
-        td(style='text-align: left;') #{userRecord.username}
+        td(style='text-align: left;') #{userRecord.familyrole}
         td(style='text-align: left;') #{userRecord.email}
-        td(style='text-align: left;') Button
+        td.pull-right
+            form(action='/configuration/person/'+userRecord.id)
+                button.btn.btn-info(type='submit') Edit
+            form(action='/configuration/person/delete/'+userRecord.id method='get')
+                button.btn.btn-danger(type='submit') Delete

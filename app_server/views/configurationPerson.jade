@@ -1,0 +1,20 @@
+include _helperBootstrapForm
+extends layout
+
+block content
+
+    .row
+        .col-sm-4.col-md-4.col-lg-4
+            .panel.panel-default
+                .panel-heading Person Information...
+                .panel-body
+                    - var actionURL = '/configuration/person/new'
+                    if person.id > 0
+                        - actionURL = '/configuration/person/' + person.id
+                    form(action = actionURL method='post')
+                        input(name='familyid' value=currentUser.familyid type='hidden')
+                        +formInputText('First Name','firstname','',person.firstname,true,true)
+                        +formInputText('Family Role','familyrole','',person.familyrole,false,true)
+                        +formInputText('Email', 'email','Your email address',currentUser.email,false,false)
+                        +formPanelEnd('Save')
+

@@ -58,3 +58,9 @@ body{
 .container{
     margin-top:20px;
 }
+/*  Set the forms to display buttons side by side instead of stacked */
+
+form{
+    display: inline;
+    margin-left: 10px;
+}

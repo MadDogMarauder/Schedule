@@ -153,24 +153,6 @@ module.exports.personCreate = function(req,res){
     });
 
 };
-// var sendCreateRequestToAPI = function (req,res,apiPath,newRecord,renderSuccess){
-//     var requestOptions;
-//     var token = req.user.generateJwt();
-//     requestOptions = {
-//         url: apiOptions.server + apiPath,
-//         method: 'POST',
-//         headers: {'authorization' : 'Bearer ' + token},
-//         json : newRecord
-//     };
-//     console.log(newRecord);
-//     request(requestOptions,function(err,response,data){
-//         if (response.statusCode===201){
-//             renderSuccess(req,res,data);
-//         }else {
-//             _showError(req,res,response.statusCode,data);
-//         }
-//     });
-// };
 
 module.exports.personReadOne = function (req,res){
     sendAPIRequest(req,res,'/api/configuration/person/'+req.params.personid,

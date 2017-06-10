@@ -41,9 +41,10 @@ block content
                                 th.col-sm-2 Actions
 
                         tbody
-                            if family.People.length > 0
-                                each person in family.People
-                                    +tableRow(person)
+                            if family
+                                if family.People.length > 0
+                                    each person in family.People
+                                        +tableRow(person)
 
 
 mixin tableRow(userRecord)

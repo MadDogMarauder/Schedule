@@ -1,17 +1,14 @@
 require('dotenv').config({path:'./app_server/config/.env'});
 var express = require('express');
 var path = require('path');
-var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var flash = require('connect-flash');
-var passport = require('passport');
 var setupPassword = require('./app_server/javascript/setupPassport');
-var enforeSSL = require('express-enforces-ssl');
 var helmet = require('helmet');
-var ms = require('ms');
+
 
 
 var routes = require('./app_server/routes/index');
@@ -73,28 +70,31 @@ app.use(function (req,res,next){
     next();
 });
 
+// Add all routes for the application
 app.use(routes);
 app.use('/api',routesApi);
-
-
-// Handle requests for unknown sources 404 errors
-app.use(function (req, res) {
+// This last route is there to catch
+app.get('*', function(req,res,next){
     var err = new Error('Page not found.');
     err.status = 404;
-    console.error(err);
-
-    res.render('error',{
-        message: err.message,
-        error:{}
-    })
+    next(err);
 });
 
-
-// error handlers
+// Handle requests for unknown sources 404 errors
+app.use(function(err,req,res,next){
+    if(err.status === 404){
+        res.render('error',{
+            message: 'Page not available',
+            error:err
+        });
+    }
+});
 
 // Handle CSRF errors
 app.use(function(err,req,res,next){
+
     console.log(err);
+
     if (err.name === 'UnauthorizedError'){
         res.render('error',{
             message: 'Unauthorized error :' + err.message,
@@ -109,18 +109,9 @@ app.use(function(err,req,res,next){
     }
     res.status(403);
     // ToDo: change error returned
-    res.send('Authetication error');
+    res.send('Authentication error');
 });
 
-// production error handler
-// no stacktraces leaked to user
-// app.use(function(err, req, res) {
-//   res.status(err.status || 500);
-//   res.render('error', {
-//     message: err.message,
-//     error: {}
-//   });
-// });
 
 
 module.exports = app;

@@ -8,10 +8,15 @@ mixin formPanelEnd(textSubmit)
         p
         button.ui-button.ui-corner-all.ui-widget(type='submit') #{textSubmit}
 
-mixin formInputText(label,inputName,textPlaceholder, dbValue, isRequired, isAutoFocus)
+mixin formInputText(label,inputName,textPlaceholder, dbValue, isRequired, isAutoFocus,isReadOnly)
     div.form-group
         label #{label}
         if !dbValue
             - dbValue = ''
-        input.form-control(type='text' placeholder='#{textPlaceholder}' name='#{inputName}' value=dbValue required=isRequired autofocus=isAutoFocus)
-
+        input.form-control(type='text' placeholder='#{textPlaceholder}' name='#{inputName}' value=dbValue required=isRequired autofocus=isAutoFocus readonly=isReadOnly)
+mixin fromReadOnlyInput(label,inputName,textPlaceholder, dbValue)
+    div.form-group
+        label #{label}
+        if !dbValue
+            - dbValue = ''
+        input.form-control(type='text' placeholder='#{textPlaceholder}' name='#{inputName}' value=dbValue readonly)

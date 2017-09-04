@@ -10,10 +10,10 @@ block content
                 .panel-body
                     form(action = '/editUser' method='post')
                         input(name='_csrf' value='#{csrfToken}' type='hidden')
-                        +formInputText('User Name','username','Type your user name',currentUser.username,true,true)
-                        +formInputText('First Name', 'firstname','Your first name',currentUser.firstname,false,false)
-                        +formInputText('Last Name', 'lastname','Your last name',currentUser.lastname,false,false)
-                        +formInputText('Email', 'email','Your email address',currentUser.email,false,false)
+                        +fromReadOnlyInput('User Name','username','Type your user name',currentUser.username)
+                        +formInputText('First Name', 'firstname','Your first name',currentUser.firstname,false,false,false)
+                        +formInputText('Last Name', 'lastname','Your last name',currentUser.lastname,false,false,false)
+                        +formInputText('Email', 'email','Your email address',currentUser.email,false,false,false)
                         +formPanelEnd('Save Changes')
     p &#32;
     .row

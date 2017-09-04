@@ -14,9 +14,13 @@ mixin formInputText(label,inputName,textPlaceholder, dbValue, isRequired, isAuto
         if !dbValue
             - dbValue = ''
         input.form-control(type='text' placeholder='#{textPlaceholder}' name='#{inputName}' value=dbValue required=isRequired autofocus=isAutoFocus readonly=isReadOnly)
-mixin fromReadOnlyInput(label,inputName,textPlaceholder, dbValue)
+mixin formReadOnlyInput(label,inputName,textPlaceholder, dbValue)
     div.form-group
         label #{label}
         if !dbValue
             - dbValue = ''
         input.form-control(type='text' placeholder='#{textPlaceholder}' name='#{inputName}' value=dbValue readonly)
+mixin formPasswordInput(label,inputName,textPlaceholder)
+    div.form-group
+        label #{label}
+        input.form-control(type='password' placeholder='#{textPlaceholder}' name='#{inputName}' required)

@@ -22,7 +22,6 @@ module.exports = function (sequelize, Datatypes){
         //Options
         classMethods:{
             associate: function(models){
-                Person.belongsTo(models.User);
                 Person.belongsTo(models.Family);
             }
         }

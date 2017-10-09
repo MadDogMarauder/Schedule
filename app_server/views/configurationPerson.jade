@@ -15,6 +15,8 @@ block content
                         input(name='familyid' value=currentUser.familyid type='hidden')
                         +formInputText('First Name','firstname','',person.firstname,true,true)
                         +formInputText('Family Role','familyrole','',person.familyrole,false,true)
-                        +formInputText('Email', 'email','Your email address',currentUser.email,false,false)
-                        +formPanelEnd('Save')
+                        +formInputText('Email', 'email','Your email address',person.email,false,false)
+                        +formPanelEndSaveCancel
+
+
 

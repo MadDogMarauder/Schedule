@@ -111,7 +111,8 @@ module.exports.familyUpdate = function (req,res){
         console.log(data);
         console.log(response.body);
         if (response.statusCode===200){
-            renderFamilyReadOne(req,res,data);
+            req.flash('success','Family updated!');
+            res.redirect('/editUser');
         }else {
             _showError(req,res,response.statusCode,data);
         }
@@ -180,6 +181,7 @@ module.exports.personUpdateOne = function (req,res){
         }
     );
 };
+
 var sendAPIRequest = function (req,res, apiPath, requestMethod, data, callback){
     var token = req.user.generateJwt();
     var requestOptions;

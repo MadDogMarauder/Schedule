@@ -81,19 +81,38 @@ module.exports.userEdit = function (req,res) {
 // POST Save user changes
 module.exports.userEditSave = function (req, res, next) {
     console.log('Request: ',req.body);
-    req.user.firstname = req.body.firstname;
-    req.user.lastname = req.body.lastname;
-    req.user.username = req.body.username;
-    req.user.email = req.body.email;
-    req.user.save()
-        .then(function (user)
-            {
-                req.flash('success','User '+ user.username +' updated!');
-                res.redirect('/editUser');
-            }
-        )
-        .catch(function(err){
-            if(err){
-                return next(err);
-            }});
+    var oldPassword = req.body.oldpassword;
+    var newPassword = req.body.newpassword;
+
+    req.user.isMatch(oldPassword,function(matchErr,matchFound){
+        if (matchErr) {
+            // It should give the user an error message
+            req.flash('error','Could not save. Error:'+err.message);
+            res.redirect('/editUser');
+            return done(matchErr);
+        }
+        if (matchFound){
+            req.user.password = newPassword;
+            req.user.save()
+                .then(function (user)
+                    {
+                        console.log('Updated password!');
+                        req.flash('success','User '+ user.username +' updated!');
+                        res.redirect('/editUser');
+                        return done(null,req.user);
+                    }
+                )
+                .catch(function(err){
+                    if(err){
+                        return next(err);
+                    }});
+        }
+        if (matchFound === false){
+            // If the program gets to this level, then the password is invalid
+            req.flash('error', 'Could not save user. Invalid password entered.');
+            res.redirect('/editUser');
+        }
+    });
+
+
 };

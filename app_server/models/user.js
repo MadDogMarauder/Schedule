@@ -47,7 +47,7 @@ module.exports = function (sequelize, DataTypes){
         classMethods:{
             associate: function (models) {
                 User.belongsTo(models.Family);
-                User.hasOne(models.Person);
+                User.belongsTo(models.Person);
             }
         }
     });

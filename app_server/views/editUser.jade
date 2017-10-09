@@ -51,8 +51,10 @@ mixin tableRow(userRecord)
         td(style='text-align: left;') #{userRecord.firstname}
         td(style='text-align: left;') #{userRecord.familyrole}
         td(style='text-align: left;') #{userRecord.email}
-        td.pull-right
+        td
             form(action='/configuration/person/'+userRecord.id)
                 button.btn.btn-info(type='submit') Edit
             form(action='/configuration/person/delete/'+userRecord.id method='get')
                 button.btn.btn-danger(type='submit') Delete
+
+

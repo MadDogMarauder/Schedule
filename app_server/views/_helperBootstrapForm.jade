@@ -24,3 +24,9 @@ mixin formPasswordInput(label,inputName,textPlaceholder)
     div.form-group
         label #{label}
         input.form-control(type='password' placeholder='#{textPlaceholder}' name='#{inputName}' required)
+
+mixin formPanelEndSaveCancel()
+    .col.text-center
+        p
+        button.ui-button.ui-corner-all.ui-widget(type='submit') Save
+        button.ui-button.ui-corner-all.ui-widget(onclick='window.history.back()') Cancel

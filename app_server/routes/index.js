@@ -79,4 +79,5 @@ router.post('/configuration/person/new',userAuthenticated,ctrlConfiguration.pers
 router.get('/configuration/person/:personid',userAuthenticated,ctrlConfiguration.personReadOne);
 router.get('/configuration/person/delete/:personid',userAuthenticated,ctrlConfiguration.personDelete);
 router.post('/configuration/person/:personid',userAuthenticated,ctrlConfiguration.personUpdateOne);
+
 module.exports = router;

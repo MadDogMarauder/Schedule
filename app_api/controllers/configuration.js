@@ -242,7 +242,6 @@ module.exports.personUpdateOne = function (req,res){
         });
     }
 };
-
 //  Deletes a person
 module.exports.personDeleteOne = function (req,res) {
     if (req.params && req.params.personid){
